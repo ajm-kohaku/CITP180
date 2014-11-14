@@ -10,114 +10,128 @@ namespace MurphyAA11
 		//initialize calculator variables
 		private decimal currentValue;
 		private decimal operand1;
-		private decimal operand2;
-		private bool isOperand1;
-		private bool isOperand2;
-		
+		private decimal operand2;	
+	
 		private Operator op;
 		enum Operator {Add, Subtract, Multiply, Divide, SquareRoot, Reciprocal, None};
 		
 		//class constructor sets default values
-		public Calculator()
-		{	
-			//TODO: not sure if this is the correct syntax
-			this.defaultValues();
-		}
-		
-		public void defaultValues()
-		{
-			this.currentValue = 0m;
-			this.operand1 = 0m;
-			this.operand2 = 0m;
-			this.isOperand1 = false;
-			this.isOperand2 = false;
-			this.op = Operator.None;
-		}
+		public Calculator() {
+            defaultValues();
+        }
 		
 		//method to get the currentValue
 		public decimal CurrentValue
 		{
-			get { return this.currentValue}
+            get { return this.currentValue; }
 		}
-		
+
+        //method that defines default values for constructor and Clear method
+        private void defaultValues()
+        {
+            this.currentValue = 0m;
+            this.operand1 = 0m;
+            this.operand2 = 0m;
+            this.op = Operator.None;
+        }
+
 		//calls defaultValues
 		public void Clear()
 		{
-			this.defaultValues();
+            defaultValues();
 		}
-		
-		private void getOperand(decimal displayValue)
-		{
-            if(isOperand1) 
-            {
-				operand2 = displayValue;
-				isOperand2 = true;
-            }
-            else 
-			{
-				operand1 = displayValue;
-				isOperand1 = true;
-				currentValue = operand1;
-            }
-		}
+
+        //method that sets the operand
+        private void setOperand(decimal displayValue)
+        {
+            this.operand1 = displayValue;
+            this.currentValue = displayValue;
+        }
 		
 		//determine Add operations
-		private void Add(decimal displayValue)
+		public void Add(decimal displayValue)
 		{
-			this.getOperand(displayValue);
-			this.op = Operator.Add;
+            setOperand(displayValue);
+            op = Operator.Add;
 		}
 		
 		//determine Subtract operations
-		private void Subtract(decimal displayValue)
+		public void Subtract(decimal displayValue)
 		{
-			this.getOperand(displayValue);
-			this.op = Operator.Subtract;
+            setOperand(displayValue); 
+            op = Operator.Subtract;
 		}
 		
 		//determine Multiply operations
-		private void Multiply(decimal displayValue)
+		public void Multiply(decimal displayValue)
 		{
-			this.getOperand(displayValue);
-			this.op = Operator.Multiply;
+            setOperand(displayValue); 
+            op = Operator.Multiply;
 		}
-		
-		//determine Divide operations
-		private void Divide(decimal displayValue)
+
+        //determine Divide operations
+		public void Divide(decimal displayValue)
 		{
-			this.getOperand(displayValue);
-			this.op = Operator.Divide;
+            setOperand(displayValue);
+            op = Operator.Divide;
 		}
-		
-		//Do Math based on operator
+
+        //determine SquareRoot operations
+        public void SquareRoot(decimal displayValue)
+        {
+            setOperand(displayValue);
+            op = Operator.SquareRoot;
+        }
+
+        //determine Reciprocal operations
+        public void Reciprocal(decimal displayValue)
+		{
+            setOperand(displayValue);
+            op = Operator.Reciprocal;
+		}
+
+        //method that does all the math
+        private void Calculate(decimal displayValue) 
+        {
+            switch (op)
+            {
+                case Operator.Add:
+                    currentValue = operand1 + displayValue;
+                    break;
+                case Operator.Subtract:
+                    currentValue = operand1 - displayValue;
+                    break;
+                case Operator.Multiply:
+                    currentValue = operand1 * displayValue;
+                    break;
+                case Operator.Divide:
+                    currentValue = operand1 / displayValue;
+                    break;
+                case Operator.SquareRoot:
+                    currentValue = (decimal)Math.Sqrt(Convert.ToDouble(displayValue));
+                    break;
+                case Operator.Reciprocal:
+                    currentValue = 1 / displayValue;
+                    break;
+                default:
+                    //display error message
+                    break;
+            }
+            operand1 = currentValue;
+        }
+
+		//method that calls the calculation 
 		public void Equals(decimal displayValue)
 		{
-			switch(this.op)
-			{
-				case Operator.Add:
-					currentValue = operand1 + operand2;
-					break;
-				case Operator.Subtract:
-					currentValue = operand1 - operand2;
-					break;
-				case Operator.Multiply:
-					currentValue = operand1 * operand2;
-					break;
-				case Operator.Divide:
-					currentValue = operand1 / operand2;
-					break;
-				case Operator.SquareRoot:
-					currentValue = (decimal) Math.Sqrt(Convert.ToDouble(displayValue));
-					break;
-				case Operator.Reciprocal:
-					currentValue = 1 / displayValue;
-					break;
-				default
-					//display error message
-					break;
-			}
-			operand1 = currentValue;
+            Calculate(displayValue);
 		}
-	}
 
+        //Do Math based on operator
+        public void Equals()
+        {
+            decimal displayValue = operand2;
+            Calculate(displayValue);
+        }
+	}
+   
 }
