@@ -93,19 +93,20 @@ namespace MurphyAA11
         //method that does all the math
         private void Calculate(decimal displayValue) 
         {
+            operand2 = displayValue;
             switch (op)
             {
                 case Operator.Add:
-                    currentValue = operand1 + displayValue;
+                    currentValue = operand1 + operand2;
                     break;
                 case Operator.Subtract:
-                    currentValue = operand1 - displayValue;
+                    currentValue = operand1 - operand2;
                     break;
                 case Operator.Multiply:
-                    currentValue = operand1 * displayValue;
+                    currentValue = operand1 * operand2;
                     break;
                 case Operator.Divide:
-                    currentValue = operand1 / displayValue;
+                    currentValue = operand1 / operand2;
                     break;
                 case Operator.SquareRoot:
                     currentValue = (decimal)Math.Sqrt(Convert.ToDouble(displayValue));
@@ -129,7 +130,7 @@ namespace MurphyAA11
         //Do Math based on operator
         public void Equals()
         {
-            decimal displayValue = operand2;
+            decimal displayValue = currentValue;
             Calculate(displayValue);
         }
 	}
