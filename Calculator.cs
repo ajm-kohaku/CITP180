@@ -130,7 +130,7 @@ namespace MurphyAA11
         //Do Math based on operator
         public void Equals()
         {
-            decimal displayValue = currentValue;
+            decimal displayValue = operand2;
             Calculate(displayValue);
         }
 	}
