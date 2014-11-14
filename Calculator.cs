@@ -23,7 +23,7 @@ namespace MurphyAA11
 		//method to get the currentValue
 		public decimal CurrentValue
 		{
-            get { return this.currentValue; }
+            get { return Math.Round(this.currentValue,8); }
 		}
 
         //method that defines default values for constructor and Clear method
