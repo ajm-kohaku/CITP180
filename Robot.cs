@@ -44,7 +44,7 @@ namespace MurphyAA12
                     y -= units;
                     if (y < -MaxRange)
                     {
-                        y = MaxRange;
+                        y = -MaxRange;
                         Crash(this, EventArgs.Empty);
                     }
                     break;
@@ -60,7 +60,7 @@ namespace MurphyAA12
                      x-= units;
                     if (x < -MaxRange)
                     {
-                        x = MaxRange;
+                        x = -MaxRange;
                         Crash(this, EventArgs.Empty);
                     }
                     break;
